@@ -1,4 +1,4 @@
-# Documentação - Desafio Escola Alf!
+# Desafio Escola Alf!
 
 ## Introdução
 
@@ -38,11 +38,10 @@ Crie uma API HTTP que permita à escola:
 Após efetuar o clone do repositório, dentro da pasta do repositório, existirão os seguintes arquivos:
 
 >     - backend
->
-> - escolaAlf-0.0.1-SNAPSHOT
-> - README
+>     - escolaAlf-0.0.1-SNAPSHOT
+>     - README
 
-Abra um terminal (de sua preferência), e execute o comando:
+Dentro da pasta, abra um terminal (de sua preferência) e execute o comando:
 
     java -jar escolaAlf-0.0.1-SNAPSHOT.jar
 
