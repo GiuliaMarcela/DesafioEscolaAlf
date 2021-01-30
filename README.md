@@ -1,4 +1,4 @@
-# Documentação - Desafio Escola Alf!
+# Desafio Escola Alf!
 
 A **escola Alf** aplica provas de múltipla escolha para os alunos. A nota do  
 aluno na prova é determinada pela média ponderada das questões com os  
@@ -29,8 +29,6 @@ peso e cada questão errada 0. A **nota final** é a média aritmética das nota
 ### GET /approved
 
 > Listar os alunos aprovados;
-
-    [  {  "id":  0,  "name":  "string",  "result":  0,  "status":  true,  "tests":  [  "string"  ]  }  ]
 
 ### GET /students
 
