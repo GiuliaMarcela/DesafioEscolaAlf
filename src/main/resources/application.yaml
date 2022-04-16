@@ -1,0 +1,16 @@
+api:
+  version: v1
+  prefix: api
+spring:
+  profiles:
+    active: test
+
+# Swagger properties configuration
+spring-doc:
+  api-docs:
+    enabled: true
+  use-fqn: false
+  swagger-ui:
+    path: /docs
+    tags-sorter: alpha
+    operations-sorter: method
