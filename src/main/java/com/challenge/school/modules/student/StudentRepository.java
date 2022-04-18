@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface StudentRepository extends JpaRepository<Student, UUID> {
     Optional<Student> findByEmail(String email);
+    Optional<Student> findByEnrollment(String enrollment);
 }
