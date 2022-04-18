@@ -1,11 +1,13 @@
 package com.challenge.school.modules.student.controllers;
 
 import com.challenge.school.exceptions.CustomBadRequestException;
+import com.challenge.school.exceptions.CustomNotFoundException;
 import com.challenge.school.modules.student.builders.StudentRequestBuilder;
 import com.challenge.school.modules.student.builders.StudentResponseBuilder;
 import com.challenge.school.modules.student.dto.StudentRequest;
 import com.challenge.school.modules.student.dto.StudentResponse;
 import com.challenge.school.modules.student.usecases.CreateStudentUseCase;
+import com.challenge.school.modules.student.usecases.GetStudentByEnrollmentUseCase;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,6 +39,9 @@ class StudentControllerTest {
 
     @MockBean
     CreateStudentUseCase createStudentUseCase;
+
+    @MockBean
+    GetStudentByEnrollmentUseCase getStudentByEnrollmentUseCase;
 
     StudentRequestBuilder requestBuilder;
     StudentResponseBuilder responseBuilder;
@@ -54,9 +60,9 @@ class StudentControllerTest {
         when(createStudentUseCase.execute(studentRequest)).thenReturn(studentResponse);
 
         mockMvc.perform(
-                post("/api/v1/students")
-                        .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(studentRequest)))
+                        post("/api/v1/students")
+                                .contentType(APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(studentRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.id").isNotEmpty())
@@ -79,6 +85,42 @@ class StudentControllerTest {
                                 .contentType(APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(studentRequest)))
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.failed").value(true))
+                .andExpect(jsonPath("$.message").value(message))
+                .andDo(print());
+    }
+
+    @Test
+    void whenGetByEnrollmentIsCalledWithValidEnrollmentThenOkStatusShouldBeReturned() throws Exception {
+        String enrollment = "006368";
+        StudentResponse studentResponse = responseBuilder.buildStudentResponse();
+
+        when(getStudentByEnrollmentUseCase.execute(enrollment)).thenReturn(studentResponse);
+
+        mockMvc.perform(
+                        get("/api/v1/students?enrollment=" + studentResponse.getEnrollment())
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.enrollment").value(studentResponse.getEnrollment()))
+                .andDo(print());
+    }
+
+    @Test
+    void whenGetByEnrollmentIsCalledWithInvalidEnrollmentThenNotFoundStatusShouldBeReturned() throws Exception {
+        String enrollment = "009021";
+        String message = String.format("Usuário referente a matrícula %s não foi encontrado.", enrollment);
+
+        when(getStudentByEnrollmentUseCase.execute(enrollment)).thenThrow(new CustomNotFoundException(message));
+
+        mockMvc.perform(
+                        get("/api/v1/students?enrollment=" + enrollment)
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.failed").value(true))
                 .andExpect(jsonPath("$.message").value(message))
