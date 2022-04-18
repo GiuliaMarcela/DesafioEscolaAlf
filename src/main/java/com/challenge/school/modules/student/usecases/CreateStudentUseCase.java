@@ -1,5 +1,6 @@
 package com.challenge.school.modules.student.usecases;
 
+import com.challenge.school.exceptions.CustomBadRequestException;
 import com.challenge.school.modules.student.Student;
 import com.challenge.school.modules.student.StudentMapper;
 import com.challenge.school.modules.student.StudentRepository;
@@ -26,13 +27,13 @@ public class CreateStudentUseCase {
                 .ifPresent(student -> {
                     String message = String.format("Usuário com email %s já foi cadastrado.", student.getEmail());
 
-                    throw new RuntimeException(message);
+                    throw new CustomBadRequestException(message);
                 });
     }
 
     private void checkIfCanStillRegisterStudents() {
         if (repository.findAll().size() >= 100) {
-            throw new RuntimeException("Não é possível cadastrar mais usuários.");
+            throw new CustomBadRequestException("Não é possível cadastrar mais usuários.");
         }
     }
 

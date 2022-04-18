@@ -1,5 +1,6 @@
 package com.challenge.school.modules.student.controllers;
 
+import com.challenge.school.exceptions.CustomBadRequestException;
 import com.challenge.school.modules.student.builders.StudentRequestBuilder;
 import com.challenge.school.modules.student.builders.StudentResponseBuilder;
 import com.challenge.school.modules.student.dto.StudentRequest;
@@ -62,6 +63,25 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.enrollment").isString())
                 .andExpect(jsonPath("$.name").isString())
                 .andExpect(jsonPath("$.email").isString())
+                .andDo(print());
+    }
+
+    @Test
+    void whenPostMethodIsCalledWithInvalidFieldsThenBadRequestStatusShouldBeReturned() throws Exception {
+        StudentRequest studentRequest = requestBuilder.buildStudentRequest();
+        String message = String.format("Usuário com email %s já foi cadastrado.", studentRequest.getEmail());
+
+        when(createStudentUseCase.execute(studentRequest))
+                .thenThrow(new CustomBadRequestException(message));
+
+        mockMvc.perform(
+                        post("/api/v1/students")
+                                .contentType(APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(studentRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.failed").value(true))
+                .andExpect(jsonPath("$.message").value(message))
                 .andDo(print());
     }
 }
