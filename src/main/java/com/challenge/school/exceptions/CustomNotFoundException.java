@@ -1,8 +1,6 @@
 package com.challenge.school.exceptions;
 
-import javax.persistence.EntityNotFoundException;
-
-public class CustomNotFoundException extends EntityNotFoundException {
+public class CustomNotFoundException extends RuntimeException {
     public CustomNotFoundException(String message) {
         super(message);
     }
