@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 @Slf4j
@@ -38,10 +40,15 @@ public class CreateStudentUseCase {
     }
 
     private String generateEnrollmentForStudent() {
-        Random random = new Random();
-        Integer number = random.nextInt(100000);
+        try {
+            Random random = SecureRandom.getInstanceStrong();
+            Integer number = random.nextInt(100000);
 
-        return String.format("%06d", number);
+            return String.format("%06d", number);
+        } catch (NoSuchAlgorithmException e) {
+            log.error("Exception Message: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public StudentResponse execute(StudentRequest data) {
