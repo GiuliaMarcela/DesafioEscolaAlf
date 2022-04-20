@@ -1,6 +1,7 @@
 package com.challenge.school.modules.student.usecases;
 
 import com.challenge.school.exceptions.CustomBadRequestException;
+import com.challenge.school.exceptions.CustomInternalServerException;
 import com.challenge.school.modules.student.Student;
 import com.challenge.school.modules.student.StudentMapper;
 import com.challenge.school.modules.student.StudentRepository;
@@ -47,7 +48,7 @@ public class CreateStudentUseCase {
             return String.format("%06d", number);
         } catch (NoSuchAlgorithmException e) {
             log.error("Exception Message: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new CustomInternalServerException(e.getMessage());
         }
     }
 
