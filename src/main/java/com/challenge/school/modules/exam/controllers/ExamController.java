@@ -1,18 +1,18 @@
 package com.challenge.school.modules.exam.controllers;
 
+import com.challenge.school.modules.exam.ExamMapper;
 import com.challenge.school.modules.exam.dto.ExamRequest;
 import com.challenge.school.modules.exam.dto.ExamResponse;
 import com.challenge.school.modules.exam.usecases.CreateExamUseCase;
+import com.challenge.school.modules.exam.usecases.GetExamByIdUseCase;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @RestController
@@ -20,6 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @RequestMapping("/${api.prefix}/${api.version}/exams")
 public class ExamController implements ExamControllerDocs {
     private final CreateExamUseCase createExamUseCase;
+    private final GetExamByIdUseCase getExamByIdUseCase;
 
     @Override
     @PostMapping
@@ -28,6 +29,18 @@ public class ExamController implements ExamControllerDocs {
 
         return ResponseEntity
                 .status(CREATED)
+                .contentType(APPLICATION_JSON)
+                .body(response);
+    }
+
+    @Override
+    @GetMapping("/search")
+    public ResponseEntity<ExamResponse> handleGetExamById(@RequestParam String examId) {
+        final ExamMapper mapper = ExamMapper.INSTANCE;
+        ExamResponse response = mapper.toExamResponse(getExamByIdUseCase.execute(examId));
+
+        return ResponseEntity
+                .status(OK)
                 .contentType(APPLICATION_JSON)
                 .body(response);
     }
