@@ -8,6 +8,7 @@ import com.challenge.school.modules.exam.dto.ExamRequest;
 import com.challenge.school.modules.exam.dto.ExamResponse;
 import com.challenge.school.modules.exam.usecases.CreateExamUseCase;
 
+import com.challenge.school.modules.exam.usecases.GetExamByIdUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +40,9 @@ class ExamControllerTest {
 
     @MockBean
     CreateExamUseCase createExamUseCase;
+
+    @MockBean
+    GetExamByIdUseCase getExamByIdUseCase;
 
     @BeforeEach
     void setUp() {
