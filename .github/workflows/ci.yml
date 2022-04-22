@@ -1,8 +1,5 @@
 name: CI
-on:
-  push:
-    branches:
-      - main
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,7 +7,7 @@ jobs:
       - name: checking out code
         uses: actions/checkout@v2
 
-      - name: setting up java env
+      - name: setting up java 11
         uses: actions/setup-java@v2
         with:
           java-version: 11
@@ -22,6 +19,3 @@ jobs:
 
       - name: build action
         run: ./gradlew build
-
-      - name: run tests
-        run: ./gradlew test
