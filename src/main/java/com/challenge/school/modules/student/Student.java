@@ -20,4 +20,6 @@ public class Student {
     private String enrollment;
     private String name;
     private String email;
+    private Integer finalGrade;
+    private Status status;
 }
