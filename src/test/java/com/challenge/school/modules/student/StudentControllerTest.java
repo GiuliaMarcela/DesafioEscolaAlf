@@ -1,14 +1,16 @@
-package com.challenge.school.modules.student.controllers;
+package com.challenge.school.modules.student;
 
 import com.challenge.school.exceptions.CustomBadRequestException;
 import com.challenge.school.exceptions.CustomNotFoundException;
 import com.challenge.school.modules.student.builders.StudentRequestBuilder;
 import com.challenge.school.modules.student.builders.StudentResponseBuilder;
+import com.challenge.school.modules.student.controllers.StudentController;
 import com.challenge.school.modules.student.dto.StudentRequest;
 import com.challenge.school.modules.student.dto.StudentResponse;
 import com.challenge.school.modules.student.usecases.CreateStudentUseCase;
 import com.challenge.school.modules.student.usecases.GetStudentByEnrollmentUseCase;
 
+import com.challenge.school.modules.student.usecases.GetStudentFinalGradeUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +44,9 @@ class StudentControllerTest {
 
     @MockBean
     GetStudentByEnrollmentUseCase getStudentByEnrollmentUseCase;
+
+    @MockBean
+    GetStudentFinalGradeUseCase getStudentFinalGradeUseCase;
 
     StudentRequestBuilder requestBuilder;
     StudentResponseBuilder responseBuilder;
