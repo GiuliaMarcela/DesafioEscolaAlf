@@ -1,9 +1,11 @@
 package com.challenge.school.modules.student.controllers;
 
+import com.challenge.school.modules.student.dto.StudentFinalGradeResponse;
 import com.challenge.school.modules.student.dto.StudentRequest;
 import com.challenge.school.modules.student.dto.StudentResponse;
 import com.challenge.school.modules.student.usecases.CreateStudentUseCase;
 import com.challenge.school.modules.student.usecases.GetStudentByEnrollmentUseCase;
+import com.challenge.school.modules.student.usecases.GetStudentFinalGradeUseCase;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class StudentController implements StudentControllerDocs {
     private final CreateStudentUseCase createStudentUseCase;
     private final GetStudentByEnrollmentUseCase getStudentByEnrollmentUseCase;
+    private final GetStudentFinalGradeUseCase getStudentFinalGradeUseCase;
 
     @Override
     @PostMapping
@@ -37,6 +40,17 @@ public class StudentController implements StudentControllerDocs {
     @GetMapping
     public ResponseEntity<StudentResponse> handleGetByEnrollment(@RequestParam String enrollment) {
         StudentResponse response = getStudentByEnrollmentUseCase.execute(enrollment);
+
+        return ResponseEntity
+                .status(OK)
+                .contentType(APPLICATION_JSON)
+                .body(response);
+    }
+
+    @Override
+    @GetMapping("/grade")
+    public ResponseEntity<StudentFinalGradeResponse> handleGetFinalGrade(@RequestParam String enrollment) {
+        StudentFinalGradeResponse response = getStudentFinalGradeUseCase.execute(enrollment);
 
         return ResponseEntity
                 .status(OK)
