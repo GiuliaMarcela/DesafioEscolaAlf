@@ -1,5 +1,6 @@
 package com.challenge.school.modules.student;
 
+import com.challenge.school.modules.student.dto.StudentFinalGradeResponse;
 import com.challenge.school.modules.student.dto.StudentResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -17,5 +18,13 @@ public interface StudentMapper {
         result.setEmail(model.getEmail());
 
         return result;
+    }
+
+    default StudentFinalGradeResponse fromStudentToStudentFinalGrade(Student model) {
+        return new StudentFinalGradeResponse(
+                model.getEnrollment(),
+                model.getEmail(),
+                model.getFinalGrade()
+        );
     }
 }
