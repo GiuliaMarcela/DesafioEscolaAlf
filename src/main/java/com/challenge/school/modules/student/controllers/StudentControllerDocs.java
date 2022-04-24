@@ -11,8 +11,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "Estudantes", description = "Gerenciamento de estudantes")
@@ -82,4 +83,17 @@ public interface StudentControllerDocs {
             )
     })
     ResponseEntity<StudentFinalGradeResponse> handleGetFinalGrade(@RequestParam String enrollment);
+
+    @Operation(
+            method = "GET",
+            summary = "Buscar todos os alunos aprovados",
+            description = "Buscar todos os alunos aprovados"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Operação realizada com sucesso."
+            )
+    })
+    ResponseEntity<Page<StudentResponse>> handleGetAllApproved(Pageable pageable);
 }
