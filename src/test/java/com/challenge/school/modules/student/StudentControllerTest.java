@@ -8,6 +8,7 @@ import com.challenge.school.modules.student.controllers.StudentController;
 import com.challenge.school.modules.student.dto.StudentRequest;
 import com.challenge.school.modules.student.dto.StudentResponse;
 import com.challenge.school.modules.student.usecases.CreateStudentUseCase;
+import com.challenge.school.modules.student.usecases.GetAllStudentsApprovedUseCase;
 import com.challenge.school.modules.student.usecases.GetStudentByEnrollmentUseCase;
 
 import com.challenge.school.modules.student.usecases.GetStudentFinalGradeUseCase;
@@ -47,6 +48,9 @@ class StudentControllerTest {
 
     @MockBean
     GetStudentFinalGradeUseCase getStudentFinalGradeUseCase;
+
+    @MockBean
+    GetAllStudentsApprovedUseCase getAllStudentsApprovedUseCase;
 
     StudentRequestBuilder requestBuilder;
     StudentResponseBuilder responseBuilder;
