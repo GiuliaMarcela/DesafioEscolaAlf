@@ -2,9 +2,11 @@ package com.challenge.school.modules.student;
 
 import com.challenge.school.exceptions.CustomBadRequestException;
 import com.challenge.school.exceptions.CustomNotFoundException;
+import com.challenge.school.modules.student.builders.StudentFinalGradeBuilder;
 import com.challenge.school.modules.student.builders.StudentRequestBuilder;
 import com.challenge.school.modules.student.builders.StudentResponseBuilder;
 import com.challenge.school.modules.student.controllers.StudentController;
+import com.challenge.school.modules.student.dto.StudentFinalGradeResponse;
 import com.challenge.school.modules.student.dto.StudentRequest;
 import com.challenge.school.modules.student.dto.StudentResponse;
 import com.challenge.school.modules.student.usecases.CreateStudentUseCase;
@@ -54,11 +56,13 @@ class StudentControllerTest {
 
     StudentRequestBuilder requestBuilder;
     StudentResponseBuilder responseBuilder;
+    StudentFinalGradeBuilder finalGradeBuilder;
 
     @BeforeEach
     void setUp() {
         requestBuilder = StudentRequestBuilder.builder().build();
         responseBuilder = StudentResponseBuilder.builder().build();
+        finalGradeBuilder = StudentFinalGradeBuilder.builder().build();
     }
 
     @Test
@@ -133,6 +137,25 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.failed").value(true))
                 .andExpect(jsonPath("$.message").value(message))
+                .andDo(print());
+    }
+
+    @Test
+    void whenGetFinalGradeIsCalledThenOkStatusShouldBeReturned() throws Exception {
+        String enrollment = "009021";
+        StudentFinalGradeResponse studentFinalGradeResponse = finalGradeBuilder.buildStudentFinalGrade();
+
+        when(getStudentFinalGradeUseCase.execute(enrollment)).thenReturn(studentFinalGradeResponse);
+
+        mockMvc.perform(
+                        get("/api/v1/students/grade?enrollment=" + enrollment)
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.enrollment").value(studentFinalGradeResponse.getEnrollment()))
+                .andExpect(jsonPath("$.email").value(studentFinalGradeResponse.getEmail()))
+                .andExpect(jsonPath("$.finalGrade").value(studentFinalGradeResponse.getFinalGrade()))
                 .andDo(print());
     }
 }
