@@ -22,8 +22,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.*;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -156,6 +162,25 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.enrollment").value(studentFinalGradeResponse.getEnrollment()))
                 .andExpect(jsonPath("$.email").value(studentFinalGradeResponse.getEmail()))
                 .andExpect(jsonPath("$.finalGrade").value(studentFinalGradeResponse.getFinalGrade()))
+                .andDo(print());
+    }
+
+    @Test
+    void whenGetAllStudentApprovedIsCalledThenOkStatusShouldBeReturned() throws Exception {
+        StudentResponse studentResponse = responseBuilder.buildStudentResponse();
+        List<StudentResponse> studentResponseList = new ArrayList<>(List.of(studentResponse));
+
+        Page<StudentResponse> studentResponsePage = new PageImpl<>(studentResponseList);
+        when(getAllStudentsApprovedUseCase.execute(isA(Pageable.class)))
+                .thenReturn(studentResponsePage);
+
+        mockMvc.perform(
+                        get("/api/v1/students/approved")
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.content").isNotEmpty())
                 .andDo(print());
     }
 }
