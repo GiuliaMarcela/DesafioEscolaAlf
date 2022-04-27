@@ -183,4 +183,21 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.content").isNotEmpty())
                 .andDo(print());
     }
+
+    @Test
+    void whenThereAreNoApprovedStudentsAnEmptyListShouldBeReturnedWithOkStatus() throws Exception {
+        List<StudentResponse> emptyStudentResponse = new ArrayList<>();
+        Page<StudentResponse> studentResponsePage = new PageImpl<>(emptyStudentResponse);
+
+        when(getAllStudentsApprovedUseCase.execute(isA(Pageable.class))).thenReturn(studentResponsePage);
+
+        mockMvc.perform(
+                        get("/api/v1/students/approved")
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.content").isEmpty())
+                .andDo(print());
+    }
 }
