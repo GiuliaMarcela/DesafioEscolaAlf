@@ -12,8 +12,8 @@ import com.challenge.school.modules.student.dto.StudentResponse;
 import com.challenge.school.modules.student.usecases.CreateStudentUseCase;
 import com.challenge.school.modules.student.usecases.GetAllStudentsApprovedUseCase;
 import com.challenge.school.modules.student.usecases.GetStudentByEnrollmentUseCase;
-
 import com.challenge.school.modules.student.usecases.GetStudentFinalGradeUseCase;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
