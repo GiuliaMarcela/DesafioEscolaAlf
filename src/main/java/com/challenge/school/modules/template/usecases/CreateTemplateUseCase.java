@@ -32,15 +32,15 @@ public class CreateTemplateUseCase {
     public TemplateResponse execute(TemplateRequest request) {
         checkIfQuestionWeightIsValid(request.getAnswers());
 
-        Exam exam = getExamByIdUseCase.execute(request.getTestId());
+        Exam exam = getExamByIdUseCase.search(request.getTestId());
 
-        Template gabarito = new Template(null, exam.getId(), request.getAnswers());
+        Template template = new Template(null, exam.getId(), request.getAnswers());
 
-        correctExam(gabarito, exam);
+        correctExam(template, exam);
 
-        repository.save(gabarito);
+        repository.save(template);
 
-        return mapper.toDTO(gabarito);
+        return mapper.toDTO(template);
     }
 
     /**
