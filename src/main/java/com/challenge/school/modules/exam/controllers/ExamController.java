@@ -22,6 +22,7 @@ public class ExamController implements ExamControllerDocs {
     private final CreateExamUseCase createExamUseCase;
     private final GetExamByIdUseCase getExamByIdUseCase;
 
+
     @Override
     @PostMapping
     public ResponseEntity<ExamResponse> handleSaveExam(@RequestBody ExamRequest data) {
@@ -36,8 +37,7 @@ public class ExamController implements ExamControllerDocs {
     @Override
     @GetMapping("/search")
     public ResponseEntity<ExamResponse> handleGetExamById(@RequestParam String examId) {
-        final ExamMapper mapper = ExamMapper.INSTANCE;
-        ExamResponse response = mapper.toExamResponse(getExamByIdUseCase.execute(examId));
+        ExamResponse response = getExamByIdUseCase.execute(examId);
 
         return ResponseEntity
                 .status(OK)
