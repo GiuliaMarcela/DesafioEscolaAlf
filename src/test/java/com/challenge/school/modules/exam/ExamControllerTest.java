@@ -104,4 +104,19 @@ class ExamControllerTest {
                 .andExpect(jsonPath("$.id").isString())
                 .andDo(print());
     }
+
+    @Test
+    void whenGetIsCalledWithInvalidIdThenNotFoundStatusShouldBeReturned() throws Exception {
+        String id = "Brazilian";
+        String message = String.format("Não foi possível encontrar exame com o id %s", id);
+
+        when(getExamByIdUseCase.execute(id)).thenThrow(new CustomNotFoundException(message));
+
+        mockMvc
+                .perform(get("/api/v1/exams/search?examId=" + id).contentType(APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.failed").value(true))
+                .andDo(print());
+    }
 }
