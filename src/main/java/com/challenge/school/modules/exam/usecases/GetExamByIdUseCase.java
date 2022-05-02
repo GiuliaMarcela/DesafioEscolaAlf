@@ -21,20 +21,19 @@ public class GetExamByIdUseCase {
     private final ExamMapper examMapper = ExamMapper.INSTANCE;
 
     public ExamResponse execute(String id) {
-        String message = String.format("Não foi possível encontrar exame com o id %s", id);
-
-        Exam exam = repository
-                .findById(UUID.fromString(id))
-                .orElseThrow(() -> new CustomNotFoundException(message));
-
-        return examMapper.toExamResponse(exam);
-    }
-
-    public Exam search(String id) {
-        String message = String.format("Não foi possível encontrar exame com o id %s", id);
+        String errorMessage = String.format("Não foi possível encontrar exame com o id %s", id);
 
         return repository
                 .findById(UUID.fromString(id))
-                .orElseThrow(() -> new CustomNotFoundException(message));
+                .map(examMapper::toExamResponse)
+                .orElseThrow(() -> new CustomNotFoundException(errorMessage));
+    }
+
+    public Exam search(String id) {
+        String errorMessage = String.format("Não foi possível encontrar exame com o id %s", id);
+
+        return repository
+                .findById(UUID.fromString(id))
+                .orElseThrow(() -> new CustomNotFoundException(errorMessage));
     }
 }
