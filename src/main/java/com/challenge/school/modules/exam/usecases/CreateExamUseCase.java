@@ -10,6 +10,7 @@ import com.challenge.school.modules.student.Student;
 import com.challenge.school.modules.student.StudentRepository;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +24,9 @@ public class CreateExamUseCase {
     public ExamResponse execute(ExamRequest examRequest) {
         Student student = studentRepository
                 .findByEnrollment(examRequest.getStudentEnrollment())
-                .orElseThrow(() -> new CustomNotFoundException("Não foi possível encontrar aluno com a matrícula " + examRequest.getStudentEnrollment()));
+                .orElseThrow(() -> new CustomNotFoundException(
+                        "Não foi possível encontrar aluno com a matrícula " + examRequest.getStudentEnrollment()
+                ));
 
         Exam exam = new Exam();
 
