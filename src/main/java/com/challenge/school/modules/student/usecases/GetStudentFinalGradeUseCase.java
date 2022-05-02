@@ -28,36 +28,41 @@ public class GetStudentFinalGradeUseCase {
     private Student checkIfStudentExists(String enrollment) {
         return repository
                 .findByEnrollment(enrollment)
-                .orElseThrow(() -> new CustomNotFoundException("Nao foi possivel encontrar o aluno com a matricula " + enrollment));
+                .orElseThrow(() -> new CustomNotFoundException(
+                        "Nao foi possivel encontrar o aluno com a matricula " + enrollment
+                ));
     }
 
-    public StudentFinalGradeResponse execute(String enrollment) {
-        Student student = checkIfStudentExists(enrollment);
+    private int calculateStudentFinalGrade(Student actualStudent) {
+        List<Exam> exams = examRepository.findByStudentId(actualStudent.getId());
 
-        List<Exam> exams = examRepository.findByStudentId(student.getId());
         Integer numberOfTestsDone = exams.size();
         Integer totalGrades = 0;
 
         if (exams.isEmpty()) {
-            String message = String.format("%s ainda não tem nenhuma prova cadastrada.", student.getEmail());
+            String errorMessage = String.format("Aluno %s ainda não tem nenhuma prova cadastrada.", actualStudent.getEmail());
 
-            throw new CustomBadRequestException(message);
+            throw new CustomBadRequestException(errorMessage);
         }
 
         for (Exam exam : exams) {
             totalGrades = totalGrades + exam.getGrade();
         }
 
-        Integer average = totalGrades / numberOfTestsDone;
+        return totalGrades / numberOfTestsDone;
+    }
 
-        student.setFinalGrade(average);
+    public StudentFinalGradeResponse execute(String enrollment) {
+        Student student = checkIfStudentExists(enrollment);
 
-        if (average > 7) {
-            student.setStatus(Status.APPROVED);
-        } else {
+        int studentFinalGradeAverage = calculateStudentFinalGrade(student);
+
+        if (studentFinalGradeAverage <= 7) {
             student.setStatus(Status.DISAPPROVED);
         }
 
+        student.setStatus(Status.APPROVED);
+        student.setFinalGrade(studentFinalGradeAverage);
         repository.save(student);
 
         return mapper.fromStudentToStudentFinalGrade(student);
