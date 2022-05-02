@@ -46,9 +46,13 @@ public class CreateStudentUseCase {
             Integer number = random.nextInt(100000);
 
             return String.format("%06d", number);
-        } catch (NoSuchAlgorithmException e) {
-            log.error("Exception Message: " + e.getMessage());
-            throw new CustomInternalServerException(e.getMessage());
+        } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
+            log.error("Exception Message: " + noSuchAlgorithmException.getMessage());
+
+            throw new CustomInternalServerException(
+                    "Internal server error: Não foi possível gerar uma matrícula",
+                    noSuchAlgorithmException
+            );
         }
     }
 
