@@ -41,4 +41,13 @@ class StudentRepositoryTest {
         assertEquals(true, result.isPresent());
         assertThat(result.get().getEmail()).isEqualTo(student.getEmail());
     }
+
+    @Test
+    void findByEmailResultShouldReturnFalseWhenInvalidEmailIsPassed() {
+        String email = "invalid";
+
+        Optional<Student> result = systemUnderTest.findByEmail(email);
+
+        assertEquals(false, result.isPresent());
+    }
 }
