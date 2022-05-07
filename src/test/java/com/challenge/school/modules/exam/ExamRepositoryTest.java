@@ -54,4 +54,16 @@ class ExamRepositoryTest {
 
         assertThat(examOptional.isEmpty()).isEqualTo(true);
     }
+
+    @Test
+    void saveShouldReturnExamWhenValidExamIsProvided() {
+        Student student = entityManager.persistAndFlush(studentBuilder.buildStudent());
+        Exam expected = examBuilder.buildExam(student);
+
+        Exam result = systemUnderTest.save(expected);
+
+        assertThat(expected.getExamName()).isEqualTo(result.getExamName());
+        assertThat(expected.getAnswers()).isEqualTo(result.getAnswers());
+        assertThat(expected.getGrade()).isEqualTo(result.getGrade());
+    }
 }
