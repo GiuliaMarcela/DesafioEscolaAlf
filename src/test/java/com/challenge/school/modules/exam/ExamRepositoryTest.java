@@ -47,4 +47,11 @@ class ExamRepositoryTest {
         assertThat(examOptional.get().getId()).isInstanceOf(UUID.class);
         assertThat(examOptional.get().getId()).isEqualTo(result.getId());
     }
+
+    @Test
+    void findByIdShouldReturnFalseWhenInvalidIdIsProvided() {
+        Optional<Exam> examOptional = systemUnderTest.findById(UUID.randomUUID());
+
+        assertThat(examOptional.isEmpty()).isEqualTo(true);
+    }
 }
