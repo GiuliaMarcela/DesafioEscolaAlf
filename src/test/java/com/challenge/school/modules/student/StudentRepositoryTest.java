@@ -50,4 +50,18 @@ class StudentRepositoryTest {
 
         assertEquals(false, result.isPresent());
     }
+
+    @Test
+    void findByEnrollmentShouldReturnTrueWhenValidEnrollmentIsProvided() {
+        Student student = studentBuilder.buildStudent();
+
+        entityManager.persist(student);
+
+        Optional<Student> result = systemUnderTest.findByEnrollment(student.getEnrollment());
+
+        Student response = result.get();
+
+        assertEquals(true, result.isPresent());
+        assertThat(response.getEnrollment()).isEqualTo(student.getEnrollment());
+    }
 }
