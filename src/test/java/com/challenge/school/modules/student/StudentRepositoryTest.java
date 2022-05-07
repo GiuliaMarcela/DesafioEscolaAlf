@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
@@ -72,5 +76,17 @@ class StudentRepositoryTest {
         Optional<Student> result = systemUnderTest.findByEnrollment(invalidEnrollment);
 
         assertEquals(true, result.isEmpty());
+    }
+
+    @Test
+    void findAllApprovedStudentsShouldReturnStudentListWhenApprovedStudentsExists() {
+        Student student = studentBuilder.buildStudent();
+        Pageable pageable = PageRequest.of(0, 10, Sort.unsorted());
+
+        entityManager.persistAndFlush(student);
+
+        Page<Student> approved = systemUnderTest.findAllApprovedStudents(pageable);
+
+        assertThat(approved.getTotalElements()).isEqualTo(1);
     }
 }
