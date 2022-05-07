@@ -64,4 +64,13 @@ class StudentRepositoryTest {
         assertEquals(true, result.isPresent());
         assertThat(response.getEnrollment()).isEqualTo(student.getEnrollment());
     }
+
+    @Test
+    void findByEnrollmentShouldReturnFalseWhenInvalidEnrollmentIsProvided() {
+        String invalidEnrollment = "invalid-enrollment";
+
+        Optional<Student> result = systemUnderTest.findByEnrollment(invalidEnrollment);
+
+        assertEquals(true, result.isEmpty());
+    }
 }
