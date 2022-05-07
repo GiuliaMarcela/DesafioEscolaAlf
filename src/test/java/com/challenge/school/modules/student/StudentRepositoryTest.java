@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.isA;
 
 @DataJpaTest
 class StudentRepositoryTest {
@@ -88,5 +89,12 @@ class StudentRepositoryTest {
         Page<Student> approved = systemUnderTest.findAllApprovedStudents(pageable);
 
         assertThat(approved.getTotalElements()).isEqualTo(1);
+    }
+
+    @Test
+    void findAllApprovedStudentsShouldReturnEmptyListWhenThereNoApprovedStudents() {
+        Page<Student> approved = systemUnderTest.findAllApprovedStudents(isA(Pageable.class));
+
+        assertThat(approved.getSize()).isEqualTo(0);
     }
 }
