@@ -95,9 +95,10 @@ class StudentRepositoryTest {
 
     @Test
     void findAllApprovedStudentsShouldReturnEmptyListWhenThereNoApprovedStudents() {
-        Page<Student> approved = systemUnderTest.findAllApprovedStudents(isA(Pageable.class));
+        Pageable pageable = PageRequest.of(0, 10, Sort.unsorted());
+        Page<Student> approved = systemUnderTest.findAllApprovedStudents(pageable);
 
-        assertThat(approved.getSize()).isEqualTo(0);
+        assertThat(approved.getTotalElements()).isEqualTo(0);
     }
 
     @Test
