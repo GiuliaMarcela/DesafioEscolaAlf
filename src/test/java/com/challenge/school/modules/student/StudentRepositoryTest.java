@@ -112,4 +112,12 @@ class StudentRepositoryTest {
         assertThat(result).isNotEmpty();
         assertThat(students.size()).isEqualTo(result.size());
     }
+
+    @Test
+    void findAllShouldReturnEmptyListWhenThereNoStudentsRegistered() {
+        List<Student> result = systemUnderTest.findAll();
+
+        assertThat(result).isEmpty();
+        assertThat(result.size()).isEqualTo(0);
+    }
 }
