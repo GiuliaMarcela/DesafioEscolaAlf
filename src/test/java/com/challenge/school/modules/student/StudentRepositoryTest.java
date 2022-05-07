@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -96,5 +98,18 @@ class StudentRepositoryTest {
         Page<Student> approved = systemUnderTest.findAllApprovedStudents(isA(Pageable.class));
 
         assertThat(approved.getSize()).isEqualTo(0);
+    }
+
+    @Test
+    void findAllShouldReturnStudentsWhenThereStudentsRegistered() {
+        Student student = studentBuilder.buildStudent();
+
+        entityManager.persistAndFlush(student);
+
+        List<Student> students = new ArrayList<>(List.of(student));
+        List<Student> result = systemUnderTest.findAll();
+
+        assertThat(result).isNotEmpty();
+        assertThat(students.size()).isEqualTo(result.size());
     }
 }
