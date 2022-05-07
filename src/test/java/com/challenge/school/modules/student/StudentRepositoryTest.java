@@ -120,4 +120,14 @@ class StudentRepositoryTest {
         assertThat(result).isEmpty();
         assertThat(result.size()).isEqualTo(0);
     }
+
+    @Test
+    void shouldSaveStudent() {
+        Student student = studentBuilder.buildStudent();
+
+        Student result = systemUnderTest.save(student);
+
+        assertThat(result).hasFieldOrProperty("id");
+        assertThat(result).hasFieldOrPropertyWithValue("email", student.getEmail());
+    }
 }
