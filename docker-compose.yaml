@@ -1,0 +1,23 @@
+version: '3'
+services:
+  school-api:
+    image: 'giuliaarruda/challenge-school:latest'
+    build:
+      context: .
+    container_name: 'school-api'
+    restart: 'always'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - school-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://school-database:5432/school-alf
+      - SPRING_DATASOURCE_USERNAME=school-alf
+      - SPRING_DATASOURCE_PASSWORD=root
+  school-database:
+    image: postgres
+    container_name: 'school-database'
+    restart: 'always'
+    environment:
+      - POSTGRES_USER=school-alf
+      - POSTGRES_PASSWORD=root
