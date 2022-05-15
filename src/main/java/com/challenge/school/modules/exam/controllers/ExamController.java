@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -25,7 +27,7 @@ public class ExamController implements ExamControllerDocs {
 
     @Override
     @PostMapping
-    public ResponseEntity<ExamResponse> handleSaveExam(@RequestBody ExamRequest data) {
+    public ResponseEntity<ExamResponse> handleSaveExam(@Valid @RequestBody ExamRequest data) {
         ExamResponse response = createExamUseCase.execute(data);
 
         return ResponseEntity

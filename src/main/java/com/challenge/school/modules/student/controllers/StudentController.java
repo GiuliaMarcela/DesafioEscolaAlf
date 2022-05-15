@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -31,7 +33,7 @@ public class StudentController implements StudentControllerDocs {
 
     @Override
     @PostMapping
-    public ResponseEntity<StudentResponse> handleSave(@RequestBody StudentRequest data) {
+    public ResponseEntity<StudentResponse> handleSave(@Valid @RequestBody StudentRequest data) {
         StudentResponse response = createStudentUseCase.execute(data);
 
         return ResponseEntity
