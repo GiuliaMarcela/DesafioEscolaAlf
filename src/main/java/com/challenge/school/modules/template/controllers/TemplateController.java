@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -23,7 +25,7 @@ public class TemplateController implements TemplateControllerDocs {
 
     @Override
     @PostMapping
-    public ResponseEntity<TemplateResponse> save(@RequestBody TemplateRequest data) {
+    public ResponseEntity<TemplateResponse> save(@Valid @RequestBody TemplateRequest data) {
         TemplateResponse response = createTemplateUseCase.execute(data);
 
         return ResponseEntity
