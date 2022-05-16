@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GetExamByIdUseCase {
     private final ExamRepository repository;
-    private final ExamMapper examMapper = ExamMapper.INSTANCE;
+    private static final ExamMapper examMapper = ExamMapper.INSTANCE;
 
     public ExamResponse execute(String id) {
         String errorMessage = String.format("Não foi possível encontrar exame com o id %s", id);
