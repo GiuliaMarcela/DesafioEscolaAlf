@@ -1,6 +1,5 @@
 package com.challenge.school.modules.exam.controllers;
 
-import com.challenge.school.modules.exam.ExamMapper;
 import com.challenge.school.modules.exam.dto.ExamRequest;
 import com.challenge.school.modules.exam.dto.ExamResponse;
 import com.challenge.school.modules.exam.usecases.CreateExamUseCase;
