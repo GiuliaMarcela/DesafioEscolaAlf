@@ -52,7 +52,7 @@ class ExamRepositoryTest {
     void findByIdShouldReturnFalseWhenInvalidIdIsProvided() {
         Optional<Exam> examOptional = systemUnderTest.findById(UUID.randomUUID());
 
-        assertThat(examOptional.isEmpty()).isEqualTo(true);
+        assertThat(examOptional).isNotPresent();
     }
 
     @Test
