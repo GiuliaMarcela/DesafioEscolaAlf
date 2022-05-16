@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.isA;
 
 @DataJpaTest
 class StudentRepositoryTest {
@@ -98,7 +97,7 @@ class StudentRepositoryTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.unsorted());
         Page<Student> approved = systemUnderTest.findAllApprovedStudents(pageable);
 
-        assertThat(approved.getTotalElements()).isEqualTo(0);
+        assertThat(approved.getTotalElements()).isZero();
     }
 
     @Test
@@ -111,7 +110,7 @@ class StudentRepositoryTest {
         List<Student> result = systemUnderTest.findAll();
 
         assertThat(result).isNotEmpty();
-        assertThat(students.size()).isEqualTo(result.size());
+        assertThat(students).hasSameSizeAs(result);
     }
 
     @Test
@@ -119,7 +118,6 @@ class StudentRepositoryTest {
         List<Student> result = systemUnderTest.findAll();
 
         assertThat(result).isEmpty();
-        assertThat(result.size()).isEqualTo(0);
     }
 
     @Test
@@ -128,7 +126,8 @@ class StudentRepositoryTest {
 
         Student result = systemUnderTest.save(student);
 
-        assertThat(result).hasFieldOrProperty("id");
-        assertThat(result).hasFieldOrPropertyWithValue("email", student.getEmail());
+        assertThat(result)
+                .hasFieldOrProperty("id")
+                .hasFieldOrPropertyWithValue("email", student.getEmail());
     }
 }
