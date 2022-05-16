@@ -13,6 +13,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class ErrorControllerAdvice {
+    private static final String HEADER_EXCEPTION_NAME = "exception-name";
+    private static final String HEADER_EXCEPTION_MESSAGE = "exception-message";
 
     @ExceptionHandler(CustomBadRequestException.class)
     public ResponseEntity<ErrorResponse> handleCustomBadRequestException(
@@ -22,8 +24,8 @@ public class ErrorControllerAdvice {
 
         return ResponseEntity
                 .status(BAD_REQUEST)
-                .header("exception-name", exceptionName)
-                .header("exception-message", exception.getMessage())
+                .header(HEADER_EXCEPTION_NAME, exceptionName)
+                .header(HEADER_EXCEPTION_MESSAGE, exception.getMessage())
                 .body(new ErrorResponse(BAD_REQUEST, http.getRequestURI(), exception));
     }
 
@@ -35,8 +37,8 @@ public class ErrorControllerAdvice {
 
         return ResponseEntity
                 .status(NOT_FOUND)
-                .header("exception-name", exceptionName)
-                .header("exception-message", exception.getMessage())
+                .header(HEADER_EXCEPTION_NAME, exceptionName)
+                .header(HEADER_EXCEPTION_MESSAGE, exception.getMessage())
                 .body(new ErrorResponse(NOT_FOUND, http.getRequestURI(), exception));
     }
 
@@ -48,8 +50,8 @@ public class ErrorControllerAdvice {
 
         return ResponseEntity
                 .status(INTERNAL_SERVER_ERROR)
-                .header("exception-name", exceptionName)
-                .header("exception-message", exception.getMessage())
+                .header(HEADER_EXCEPTION_NAME, exceptionName)
+                .header(HEADER_EXCEPTION_MESSAGE, exception.getMessage())
                 .body(new ErrorResponse(INTERNAL_SERVER_ERROR, http.getRequestURI(), exception));
     }
 
@@ -61,8 +63,8 @@ public class ErrorControllerAdvice {
 
         return ResponseEntity
                 .status(BAD_REQUEST)
-                .header("exception-name", exceptionName)
-                .header("exception-message", exception.getMessage())
+                .header(HEADER_EXCEPTION_NAME, exceptionName)
+                .header(HEADER_EXCEPTION_MESSAGE, exception.getMessage())
                 .body(new ErrorResponse(BAD_REQUEST, http.getRequestURI(), exception));
     }
 }
