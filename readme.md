@@ -1,5 +1,22 @@
-[![GitHub Actions status](https://github.com/GiuliaMarcela/challenge-school/actions/workflows/ci.yml/badge.svg)](https://github.com/GiuliaMarcela/challenge-school/actions/workflows/ci.yml)
+<div id="top"></div>
 <h1 align="center">Challenge School Alf</h1>
+<p align="center">
+  <img alt="GitHub Actions status" src="https://github.com/GiuliaMarcela/challenge-school/actions/workflows/ci.yml/badge.svg"/>
+
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/GiuliaMarcela/challenge-school.svg" />
+
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/GiuliaMarcela/challenge-school.svg" />
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/GiuliaMarcela/challenge-school.svg" />
+
+  <a href="https://github.com/GiuliaMarcela/challenge-school/commits/main">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/GiuliaMarcela/challenge-school.svg" />
+  </a>
+
+  <a href="https://github.com/GiuliaMarcela/challenge-school/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/GiuliaMarcela/challenge-school.svg" />
+  </a>
+</p>
 
 Em janeiro de 2021, fiz parte de um processo seletivo quando eu tinha 3 meses de conhecimento em programação. Foi um
 grande desafio, tive inúmeros impactos e dificuldades para desenvolver o projeto, e por muito tempo, achei que não
@@ -12,6 +29,25 @@ anos depois a refazer o projeto com o meu conhecimento atual.
 
 Pode encontrar o código da
 minha [primeira versão](https://github.com/GiuliaMarcela/challenge-school/tree/first-version-api) aqui.
+
+# Conteúdo
+
+1. [Sobre](#sobre)
+2. [Requisitos obrigatórios](#requisitos-obrigatórios)
+   1. [Restrições](#restrições)
+3. [Tecnologias e ferramentas utilizadas](#tecnologias-e-ferramentas-utilizadas)
+4. [Como rodar](#como-rodar)
+   1. [Localmente](#localmente)
+   2. [Utilizando o docker](#no-docker)
+5. [Casos de Uso](#casos-de-uso)
+   1. [Cadastrar aluno](#cadastrar-aluno)
+   2. [Cadastrar respostas do aluno](#cadastrar-respostas-do-aluno)
+   3. [Verificar o exame cadastrado](#verificar-o-exame-cadastrado)
+   4. [Cadastrar gabarito da prova](#cadastrar-gabarito-da-prova)
+   5. [Verificar a nota final de cada aluno](#verificar-a-nota-final-de-cada-aluno)
+   6. [Buscar aluno pela matrícula](#buscar-aluno-pela-matrícula)
+   7. [Listar alunos aprovados](#listar-alunos-aprovados)
+6. [Autores](#autores)
 
 # Sobre
 
@@ -82,6 +118,8 @@ Criar uma API restful, utilizando a linguagem java ou python.
       docker compose up -d
    ```
 
+[Back To Top](#top)
+
 # Casos de uso
 
 ## Cadastrar aluno
@@ -111,6 +149,8 @@ Criar uma API restful, utilizando a linguagem java ou python.
 ### Exceções
 
 1. Retorna **404** se o aluno não for encontrado
+
+[Back To Top](#top)
 
 ## Verificar o exame cadastrado
 
@@ -168,6 +208,8 @@ Criar uma API restful, utilizando a linguagem java ou python.
 1. Recebe uma requisição do tipo **GET** na rota **/api/v1/students/approved**
 2. Retorna **200** com uma página de alunos aprovados.
 3. Retorna **200** com uma página vazia se ainda não houver alunos aprovados.
+
+[Back To Top](#top)
 
 # Autores
 
