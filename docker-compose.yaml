@@ -1,7 +1,17 @@
 version: '3'
 services:
+  school-database:
+    image: postgres
+    container_name: 'school-database'
+    restart: 'always'
+    environment:
+      POSTGRES_USER: school-alf
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: db-alf
+    volumes:
+      - db-volumes:/var/lib/postgresql/data
   school-api:
-    image: 'giuliaarruda/challenge-school:latest'
+    image: 'giuliarruda/challenge-school:latest'
     build:
       context: .
     container_name: 'school-api'
@@ -11,13 +21,8 @@ services:
     depends_on:
       - school-database
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://school-database:5432/school-alf
-      - SPRING_DATASOURCE_USERNAME=school-alf
-      - SPRING_DATASOURCE_PASSWORD=root
-  school-database:
-    image: postgres
-    container_name: 'school-database'
-    restart: 'always'
-    environment:
-      - POSTGRES_USER=school-alf
-      - POSTGRES_PASSWORD=root
+      SPRING_DATASOURCE_URL: jdbc:postgresql://school-database:5432/db-alf
+      SPRING_DATASOURCE_USERNAME: school-alf
+      SPRING_DATASOURCE_PASSWORD: root
+volumes:
+  db-volumes:
