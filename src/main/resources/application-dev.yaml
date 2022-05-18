@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    username: ${SPRING_DATASOURCE_USERNAME:school-alf}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/db-alf}
+  jpa:
+    hibernate:
+      ddl-auto: create
