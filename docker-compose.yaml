@@ -10,6 +10,7 @@ services:
       POSTGRES_DB: db-alf
     volumes:
       - db-volumes:/var/lib/postgresql/data
+    network_mode: host
   school-api:
     image: 'giuliarruda/challenge-school:latest'
     build:
