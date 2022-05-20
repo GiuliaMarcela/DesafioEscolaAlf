@@ -98,6 +98,6 @@ class CreateExamUseCaseTest {
         var violations = validator.validate(examRequestInvalid);
 
         assertFalse(violations.isEmpty());
-        assertEquals(violations.size(), 2);
+        assertEquals(2, violations.size());
     }
 }
