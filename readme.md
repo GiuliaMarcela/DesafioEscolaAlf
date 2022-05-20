@@ -34,19 +34,19 @@ minha [primeira versão](https://github.com/GiuliaMarcela/challenge-school/tree/
 
 1. [Sobre](#sobre)
 2. [Requisitos obrigatórios](#requisitos-obrigatórios)
-   1. [Restrições](#restrições)
+    1. [Restrições](#restrições)
 3. [Tecnologias e ferramentas utilizadas](#tecnologias-e-ferramentas-utilizadas)
 4. [Como rodar](#como-rodar)
-   1. [Localmente](#localmente)
-   2. [Utilizando o docker](#no-docker)
+    1. [Localmente](#localmente)
+    2. [Utilizando o docker](#no-docker)
 5. [Casos de Uso](#casos-de-uso)
-   1. [Cadastrar aluno](#cadastrar-aluno)
-   2. [Cadastrar respostas do aluno](#cadastrar-respostas-do-aluno)
-   3. [Verificar o exame cadastrado](#verificar-o-exame-cadastrado)
-   4. [Cadastrar gabarito da prova](#cadastrar-gabarito-da-prova)
-   5. [Verificar a nota final de cada aluno](#verificar-a-nota-final-de-cada-aluno)
-   6. [Buscar aluno pela matrícula](#buscar-aluno-pela-matrícula)
-   7. [Listar alunos aprovados](#listar-alunos-aprovados)
+    1. Cadastrar aluno
+    2. Cadastrar respostas do aluno
+    3. Verificar o exame cadastrado
+    4. Cadastrar gabarito da prova
+    5. Verificar a nota final de cada aluno
+    6. Buscar aluno pela matrícula
+    7. Listar alunos aprovados
 6. [Autores](#autores)
 
 # Sobre
@@ -86,6 +86,18 @@ Criar uma API restful, utilizando a linguagem java ou python.
 - H2 Database
 - Postgres
 
+# Casos de uso
+
+- [Cadastrar aluno](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/cadastrar-aluno.md)
+- [Cadastrar respostas do aluno](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/cadastrar-respostas-aluno.md)
+- [Verificar o exame cadastrado](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/verificar-exame-cadastrado.md)
+- [Cadastrar gabarito da prova](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/cadastrar-gabarito-prova.md)
+- [Verificar a nota final de cada aluno](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/verificar-nota-final-aluno.md)
+- [Buscar aluno pela matrícula](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/buscar-aluno-por-matricula.md)
+- [Listar alunos aprovados](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/listar-alunos-aprovados.md)
+
+#### [Back To Top](#top)
+
 # Como rodar
 
 ### Localmente
@@ -107,6 +119,10 @@ Criar uma API restful, utilizando a linguagem java ou python.
 
 ### No Docker
 
+#### Requisitos
+- PostgreSQL instalado
+
+#### Docker compose
 1. Clone o repositório
 2. No terminal (da sua preferência), vá até à pasta do projeto.
     ```bash
@@ -118,98 +134,16 @@ Criar uma API restful, utilizando a linguagem java ou python.
       docker compose up -d
    ```
 
-[Back To Top](#top)
+#### Makefile 
+***Isso automatizará todo o processo anterior.***
+1. Abrir terminal na pasta raiz do projeto
+2. Rodar o comando
+```bash
+   make run
+```
 
-# Casos de uso
 
-## Cadastrar aluno
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **POST** na rota **/api/v1/students**
-2. Valida dados obrigatórios
-3. Cria um aluno com os dados fornecidos
-4. Retorna **201** com o aluno criado com o identificador
-
-### Exceções
-
-1. Retorna **400** se já existe aluno com email cadastrado
-2. Retorna **400** caso já tenha atingido o limite de 100 alunos cadastrados
-3. Retorna **500** se der erro ao gerar uma matrícula
-
-## Cadastrar respostas do aluno
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **POST** na rota **/api/v1/exams**
-2. Valida dados obrigatórios
-3. Cria as respostas com os dados fornecidos
-4. Retorna **201** com o exame e o seu identificador
-
-### Exceções
-
-1. Retorna **404** se o aluno não for encontrado
-
-[Back To Top](#top)
-
-## Verificar o exame cadastrado
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **GET** na rota **/api/v1/exams?examId={IDENTIFICADOR_DO_EXAME}**
-2. Retorna **200** com dados do exame encontrado.
-
-### Exceções
-
-1. Retorna **404** se o exame não for encontrado
-
-## Cadastrar gabarito da prova
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **POST** na rota **/api/v1/templates**
-2. Valida dados obrigatórios
-3. Cria o gabarito com os dados fornecidos
-4. Retorna **201** com o gabarito e seu identificador
-
-### Exceções
-
-1. Retorna **400** se o peso de alguma questão for menor que 0 e maior que 10.
-2. Retorna **400** se a soma final dos pesos for menor que 0 e maior que 10.
-3. Retorna **400** se o gabarito e o exame informado não tiver a mesma quantidade de perguntas e respostas.
-4. Retorna **404** se o exame requerido não for encontrado
-
-## Verificar a nota final de cada aluno
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **GET** na rota **/api/v1/students/grade?enrollment={MATRICULA}**
-2. Retorna **200** com os dados do aluno.
-
-### Exceções
-
-1. Retorna **404** se o aluno não for encontrado.
-
-## Buscar aluno pela matrícula
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **GET** na rota **/api/v1/students?enrollment={MATRICULA}**
-2. Retorna **200** com os dados do aluno.
-
-### Exceções
-
-1. Retorna **404** se o aluno não for encontrado.
-
-## Listar alunos aprovados
-
-### Caso de sucesso
-
-1. Recebe uma requisição do tipo **GET** na rota **/api/v1/students/approved**
-2. Retorna **200** com uma página de alunos aprovados.
-3. Retorna **200** com uma página vazia se ainda não houver alunos aprovados.
-
-[Back To Top](#top)
+#### [Back To Top](#top)
 
 # Autores
 
