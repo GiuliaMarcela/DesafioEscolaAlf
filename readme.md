@@ -40,13 +40,13 @@ minha [primeira versão](https://github.com/GiuliaMarcela/challenge-school/tree/
     1. [Localmente](#localmente)
     2. [Utilizando o docker](#no-docker)
 5. [Casos de Uso](#casos-de-uso)
-    1. [Cadastrar aluno](#cadastrar-aluno)
-    2. [Cadastrar respostas do aluno](#cadastrar-respostas-do-aluno)
-    3. [Verificar o exame cadastrado](#verificar-o-exame-cadastrado)
-    4. [Cadastrar gabarito da prova](#cadastrar-gabarito-da-prova)
-    5. [Verificar a nota final de cada aluno](#verificar-a-nota-final-de-cada-aluno)
-    6. [Buscar aluno pela matrícula](#buscar-aluno-pela-matrícula)
-    7. [Listar alunos aprovados](#listar-alunos-aprovados)
+    1. Cadastrar aluno
+    2. Cadastrar respostas do aluno
+    3. Verificar o exame cadastrado
+    4. Cadastrar gabarito da prova
+    5. Verificar a nota final de cada aluno
+    6. Buscar aluno pela matrícula
+    7. Listar alunos aprovados
 6. [Autores](#autores)
 
 # Sobre
@@ -88,13 +88,13 @@ Criar uma API restful, utilizando a linguagem java ou python.
 
 # Casos de uso
 
-- [Cadastrar aluno]()
-- [Cadastrar respostas do aluno]()
-- [Verificar o exame cadastrado]()
-- [Cadastrar gabarito da prova]()
-- [Verificar a nota final de cada aluno]()
-- [Buscar aluno pela matrícula]()
-- [ Listar alunos aprovados]()
+- [Cadastrar aluno](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/cadastrar-aluno.md)
+- [Cadastrar respostas do aluno](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/cadastrar-respostas-aluno.md)
+- [Verificar o exame cadastrado](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/verificar-exame-cadastrado.md)
+- [Cadastrar gabarito da prova](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/cadastrar-gabarito-prova.md)
+- [Verificar a nota final de cada aluno](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/verificar-nota-final-aluno.md)
+- [Buscar aluno pela matrícula](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/buscar-aluno-por-matricula.md)
+- [Listar alunos aprovados](https://github.com/GiuliaMarcela/challenge-school/blob/main/requirements/listar-alunos-aprovados.md)
 
 #### [Back To Top](#top)
 
@@ -119,6 +119,10 @@ Criar uma API restful, utilizando a linguagem java ou python.
 
 ### No Docker
 
+#### Requisitos
+- PostgreSQL instalado
+
+#### Docker compose
 1. Clone o repositório
 2. No terminal (da sua preferência), vá até à pasta do projeto.
     ```bash
@@ -129,6 +133,15 @@ Criar uma API restful, utilizando a linguagem java ou python.
       ./gradlew clean build
       docker compose up -d
    ```
+
+#### Makefile 
+***Isso automatizará todo o processo anterior.***
+1. Abrir terminal na pasta raiz do projeto
+2. Rodar o comando
+```bash
+   make run
+```
+
 
 #### [Back To Top](#top)
 
