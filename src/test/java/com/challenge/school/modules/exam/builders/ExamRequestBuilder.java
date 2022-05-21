@@ -14,7 +14,7 @@ public class ExamRequestBuilder {
     private String examName = "English";
 
     @Builder.Default
-    private String studentEnrollment = "009021";
+    private String studentEnrollment = "006368";
 
     @Builder.Default
     private List<ExamAnswer> answers = buildAnswers();
