@@ -40,13 +40,6 @@ minha [primeira versão](https://github.com/GiuliaMarcela/challenge-school/tree/
     1. [Localmente](#localmente)
     2. [Utilizando o docker](#no-docker)
 5. [Casos de Uso](#casos-de-uso)
-    1. Cadastrar aluno
-    2. Cadastrar respostas do aluno
-    3. Verificar o exame cadastrado
-    4. Cadastrar gabarito da prova
-    5. Verificar a nota final de cada aluno
-    6. Buscar aluno pela matrícula
-    7. Listar alunos aprovados
 6. [Autores](#autores)
 
 # Sobre
